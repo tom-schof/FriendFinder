@@ -63,22 +63,7 @@ var friendArray = [
         2
       ]
   },
-  {
-    "name":"Liz",
-    "photo":"https://randomuser.me/api/portraits/women/34.jpg",
-    "scores":[
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3
-      ]
-  },
+
   {
     "name":"Annie",
     "photo":"https://randomuser.me/api/portraits/women/18.jpg",
