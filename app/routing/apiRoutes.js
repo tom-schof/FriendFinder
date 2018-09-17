@@ -1,33 +1,41 @@
 var friendsData = require("../data/friends.js");
+var totalDifference = 0;
+var smallestDifference = 500;
+var friendIndex = 0;
 
-module.exports = function(app) {
+module.exports = function (app) {
 
-  app.get("/api/friends", function(req, res) {
-    res.json(friendsData);
-  });
+    app.get("./friends", function (req, res) {
+        res.json(friendsData);
+    });
 
-  app.post("/api/friends", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body-parser middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
-  });
+    app.post("./friends", function (req, res) {
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
+        for (var i = 0; i < friendArray.length; i++) {
+            totalDifference = 0;
+            for (var j = 0; j < userData.scores.length; j++) {
+                totalDifference += Math.abs(friendArray[i].scores[j] - userData.scores[j]);
+            }
+            if (totalDifference < smallestDifference) {
+                smallestDifference = totalDifference;
+                friendIndex = i;
+            }
+        }
 
-  app.post("/api/clear", function(req, res) {
-    // Empty out the arrays of data
-    friendsData.length = [];
+        res.json(friendArray[friendIndex]);
 
-    res.json({ ok: true });
-  });
+    });
+
+    // ---------------------------------------------------------------------------
+    // I added this below code so you could clear out the table while working with the functionality.
+    // Don"t worry about it!
+
+    app.post("./api/clear", function (req, res) {
+        // Empty out the arrays of data
+        friendsData.length = [];
+
+        res.json({
+            ok: true
+        });
+    });
 };
